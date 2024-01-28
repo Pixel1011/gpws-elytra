@@ -27,6 +27,7 @@ import net.minecraft.text.Text;
 public class gpwsConfig {
     int PullUpRange = 50;
     int BankAngleAngle = -50;
+    int RollAngleAngle = 30;
     int Volume = 100;
     int SoundDelay = 30;
     int MinSoundDelay = 10;
@@ -98,14 +99,26 @@ public class gpwsConfig {
                             )
                             .build())
                     .option(Option.createBuilder(int.class)
-                            .name(Text.literal("Bank Angle Degrees"))
+                            .name(Text.literal("Stall Angle Degrees"))
                             .description(OptionDescription.createBuilder()
-                                .text(Text.literal("If your pitch is less than this value, the bank angle sound will be played"))
+                                .text(Text.literal("If your pitch is less than this value, the stall sound will be played (currently not used)"))
                                 .build())
                             .binding(0, () -> {return gpwsElytraClient.CONFIG.BankAngleAngle;}, newVal -> gpwsElytraClient.CONFIG.BankAngleAngle = newVal)
                             .controller(opt -> IntegerSliderControllerBuilder.create(opt)
                                 .range(-90, 90)
                                 .step(1)
+                                .valueFormatter(val -> Text.literal(val + ""))    
+                            )
+                            .build())
+                    .option(Option.createBuilder(int.class)
+                            .name(Text.literal("Roll Bank Angle Degrees"))
+                            .description(OptionDescription.createBuilder()
+                                .text(Text.literal("If your roll is less than this value (only available when do a barrel roll is installed), the bank angle sound will be played"))
+                                .build())
+                            .binding(30, () -> {return gpwsElytraClient.CONFIG.RollAngleAngle;}, newVal -> gpwsElytraClient.CONFIG.RollAngleAngle = newVal)
+                            .controller(opt -> IntegerSliderControllerBuilder.create(opt)
+                                .range(5, 90)
+                                .step(5)
                                 .valueFormatter(val -> Text.literal(val + ""))    
                             )
                             .build())
@@ -121,6 +134,7 @@ public class gpwsConfig {
                                 .valueFormatter(val -> Text.literal(val + ""))    
                             )
                             .build())
+                    
                     .build())
             .build())
             .save(gpwsElytraClient.CONFIG::save)

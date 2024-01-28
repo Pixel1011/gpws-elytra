@@ -94,9 +94,9 @@ public class gpwsHud implements HudRenderCallback  {
         }
 
         gpwsElytraClient.State state = client.GetState(tickDelta);
-        LOGGER.info(state + " " + prevstate + "-");
+        //LOGGER.info(state + " " + prevstate + "-");
 
-        if (state.Bank && lastPlayedSoundTime > repeatTime) {
+        if (state.Bank && lastPlayedSoundTime > ((state.equals(prevstate))? repeatTime + 20: gpwsElytraClient.CONFIG.MinSoundDelay)) {
             gpwsElytraClient.SOUNDS_MANAGER.PlaySound(gpwsSounds.SOUNDS.BANK_ANGLE);
             lastPlayedSoundTime = 0;
         } else if (state.Pull && lastPlayedSoundTime > ((state.equals(prevstate))? repeatTime + 20: gpwsElytraClient.CONFIG.MinSoundDelay)) {

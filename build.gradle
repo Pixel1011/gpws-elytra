@@ -16,12 +16,24 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
-	maven { url = "https://maven.enjarai.nl/mirrors" }
+    maven { url = "https://jitpack.io" }
+	  maven { url = "https://maven.enjarai.nl/mirrors" }
     maven { url = "https://maven.enjarai.nl/releases" }
-	maven { url 'https://maven.isxander.dev/releases' }
+	  maven { url 'https://maven.isxander.dev/releases' }
     maven { url = "https://maven.quiltmc.org/repository/release/" }
     maven { url "https://maven.terraformersmc.com/releases" }
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
+		   exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 loom {
@@ -35,6 +47,7 @@ loom {
 	}
 
 }
+
 
 dependencies {
 	// To change the versions see the gradle.properties file
@@ -55,6 +68,9 @@ dependencies {
 
 	modImplementation 'dev.isxander.yacl:yet-another-config-lib-fabric:3.1.0+1.20'
     modApi "com.terraformersmc:modmenu:7.1.0"
+	modImplementation "maven.modrinth:6FtRfnLg:S0QngIQM"
+	include(modApi('me.lucko:fabric-permissions-api:0.2-SNAPSHOT'))
+  include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:0.1.1")))
 }
 
 processResources {

@@ -40,7 +40,8 @@ public class gpwsSounds {
         SoundsDict.put(SOUNDS.PULL_UP, PULL_UP);
         SoundsDict.put(SOUNDS.RETARD, RETARD);
 
-        for (int i=0; i<12; i++) {
+        // im sorry you annoyed me with that 12 instead of sounds length
+        for (int i=0; i < Sounds.length; i++) {
             SOUNDS currentSound = Sounds[i];
             
             gpwsElytraClient.LOGGER.info("Loading Sound: {}", currentSound.name());
@@ -73,7 +74,7 @@ public class gpwsSounds {
 		// );
     }
 
-    public void PlaySound(gpwsSounds.SOUNDS sound) {
+    public void PlaySound(SOUNDS sound) {
         PlaySound(GetSound(sound));
     }
 
